@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>Book Store:</h1>
+    <h2>Add a book to store:</h2>
+    <form action="/books" method="post">
+        <label for="title">Title: </label><br>
+        <input type="text" name="title" id="title">
+        <br>
+        <label for="author">Author: </label><br>
+        <input type="text" name="author" id="author">
+        <br>
+        <label for="genre">Genre: </label><br>
+        <input type="text" name="genre" id="genre">
+        <br>
+        <label for="TF">Recurring</label><br>
+        <select name="checked_out" id="TF">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+        <br>
+        <input type="submit" value="Add Book">
+    </form>
+    <h2>Book Store list:</h2>
+    {% for book in books %}  
+        <div>
+
+          <p>
+            <b><a href="/books/{{loop.index0}}">{{ book.title }}:</a></b> {{ book.author }}, {{book.genre}}
+            {%if book.checked_out%}
+              <span>&#9989</span>
+            {%endif%}
+          </p>
+        </div>
+        <form class="form-inline" action="/books/delete/{{ loop.index0 }}" method="POST">
+            <input type="submit" value="Delete">
+        </form>
+    {% endfor %}
+</body>
+</html>
